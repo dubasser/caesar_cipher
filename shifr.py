@@ -3,7 +3,6 @@ alphabet_ru = 'абвгдеёжзиёклмнопрстуфхцчшщъыьэю�
 
 
 def phrase_input():
-
     while True:
         wo_spaces_phrase = ''
         inputed_phrase = (input('Введите фразу(только из букв):'))
@@ -21,6 +20,7 @@ def phrase_input():
 
 def decrypt():
     temp_phrase = ''
+    step = int(input('Введите шаг шифрования/дешифровровния:'))
     for i in range(len(phrase)):
         if phrase[i] == ' ':
             temp_phrase += ' '
@@ -29,16 +29,14 @@ def decrypt():
             temp_alphabet = alphabet_eng
         else:
             temp_alphabet = alphabet_ru
-        if temp_alphabet.find(phrase[i]) == 0:
-            temp_phrase += (temp_alphabet[len(temp_alphabet) - 1])
-        else:
-            temp_phrase += (temp_alphabet[temp_alphabet.find(phrase[i]) - 1])
+        temp_phrase += (temp_alphabet[(temp_alphabet.find(phrase[i]) - step) % len(temp_alphabet)])
     print(temp_phrase)
     return 0
 
 
 def crypt():
     temp_phrase = ''
+    step = int(input('Введите шаг шифрования/дешифровровния:'))
     for i in range(len(phrase)):
         if phrase[i] == ' ':
             temp_phrase += ' '
@@ -47,10 +45,7 @@ def crypt():
             temp_alphabet = alphabet_eng
         else:
             temp_alphabet = alphabet_ru
-        if temp_alphabet.find(phrase[i]) == len(temp_alphabet) - 1:
-            temp_phrase += (temp_alphabet[0])
-        else:
-            temp_phrase += (temp_alphabet[temp_alphabet.find(phrase[i]) + 1])
+        temp_phrase += (temp_alphabet[(temp_alphabet.find(phrase[i]) + step) % len(temp_alphabet)])
     print(temp_phrase)
     return 0
 
@@ -66,4 +61,3 @@ while True:
         raise SystemExit
     else:
         print('Неверный формат ввода')
-
